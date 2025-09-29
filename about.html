@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Weather Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-
+awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+
+            background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.4)),url('https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D &auto=format&fit=crop&w=2060&q=80');
+ background-size: cover;
+                    background-position: center;
+                    background-attachment: fixed;
+                    color: #001f4d;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+            }
+
+            .container {
+                display: flex;
+                flex: 1;
+            }
+
+            /* Sidebar/Navbar */
+            .sidebar {
+                width: 250px;
+                background: linear-gradient(rgba(0, 31, 77, 0.4), rgba(0, 51, 102, 0.5)),url('https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D &auto=format&fit=crop&w=2060&q=80');
+ background-size: cover;
+                    background-position: center;
+                    color: white;
+                    padding: 30px 20px;
+                    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+                    z-index: 100;
+                    position: fixed;
+                    height: 100vh;
+                    overflow-y: auto;
+                }
+
+                .sidebar h2 {
+                    text-align: center;
+                    margin-bottom: 40px;
+                    font-weight: 700;
+                    font-size: 1.8rem;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                     gap: 10px;
+                }
+
+                .sidebar h2 i {
+                    color: #5d9bff;
+                }
+
+                .nav-links {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .nav-links a {
+                    color: #dbe4ff;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    transition: all 0.3s ease;
+                    font-weight: 500;
+                }
+
+                .nav-links a:hover {
+                    background: rgba(255, 255, 255, 0.15);
+                    color: #ffffff;
+                    transform: translateX(5px);
+                }
+
+                .nav-links a.active {
+                    background: rgba(255, 255, 255, 0.2);
+                    color: #ffffff;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+
+                .nav-links a i {
+                    font-size: 1.2rem;
+                    width: 24px;
+                    text-align: center;
+                }
+
+                /* Main Content */
+
+                .main {
+                    flex: 1;
+                    padding: 40px;
+                    overflow-y: auto;
+                    background: rgba(255, 255, 255, 0.3);
+                    backdrop-filter: blur(3px);
+                    margin-left: 250px;
+                }
+
+                header {
+                    margin-bottom: 30px;
+                }
+
+                h1 {
+                    font-weight: 800;
+                    font-size: 2.8rem;
+                    background: linear-gradient(135deg, #001f4d 0%, #003366 100%);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    margin-bottom: 10px;
+                }
+
+                /* About Content */
+                .about-content {
+                    border-radius: 20px;
+                    padding: 40px;
+                    box-shadow: 0 5px 25px rgba(0, 31, 77, 0.1);
+                    margin-bottom: 30px;
+                }
+
+                .about-section {
+                    margin-bottom: 40px;
+                }
+
+                .about-section h2 {
+                    color: #001f4d;
+                    font-size: 1.8rem;
+                    margin-bottom: 15px;
+                    padding-bottom: 10px;
+                    border-bottom: 2px solid #104ba8;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .about-section h2 i {
+                    color: #104ba8;
+                }
+
+                .about-section p {
+                    color: #001f4d;
+                    line-height: 1.6;
+                    margin-bottom: 15px;
+                }
+
+                /* Team Section */
+                .team-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 30px;
+                    margin-top: 30px;
+                }
+
+                .team-member {
+                    background: white;
+                    border-radius: 15px;
+                    padding: 25px;
+                    text-align: center;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .team-member:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                }
+
+                .member-photo {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    margin: 0 auto 15px;
+                }
+
+                .team-member h3 {
+                    color: #001f4d;
+                    font-size: 1.3rem;
+
+                    margin-bottom: 5px;
+                }
+
+                .team-member .role {
+                    color: #5d9bff;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                }
+
+                .team-member p {
+                    color: #56729a;
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                }
+
+                /* Features Section */
+                .features-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 20px;
+                    margin-top: 20px;
+                }
+
+                .feature-item {
+                    background: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    text-align: center;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+                    border-left: 4px solid #001f4d;
+                }
+
+                .feature-item i {
+                    font-size: 2.5rem;
+                    color: #104ba8;
+                    margin-bottom: 15px;
+                }
+
+                .feature-item h3 {
+                    color: #001f4d;
+                    margin-bottom: 10px;
+                }
+
+                .feature-item p {
+                    color: #56729a;
+
+                    font-size: 0.9rem;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 900px) {
+                    .container {
+                        flex-direction: column;
+                    }
+
+                    .sidebar {
+                        width: 100%;
+                        height: auto;
+                        position: relative;
+                        padding: 20px;
+                    }
+
+                    .nav-links {
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                    }
+
+                    .nav-links a {
+                        padding: 10px 15px;
+                        font-size: 0.9rem;
+                    }
+
+                    .main {
+                        margin-left: 0;
+                        padding: 20px;
+                    }
+
+                    h1 {
+                        font-size: 2.2rem;
+                    }
+
+                    .about-content {
+                        padding: 20px;
+                    }
+
+                    .about-section h2 {
+                        font-size: 1.5rem;
+                    }
+
+                    .team-grid {
+
+                        grid-template-columns: 1fr;
+                        gap: 20px;
+                    }
+                }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar/Navbar -->
+        <aside class="sidebar">
+            <h2><i class="fas fa-cloud-sun"></i> Menu</h2>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i>
+                    Dashboard</a>
+                <a href="favorites.html"><i class="fas fa-star"></i> Favorites</a>
+                <a href="history.html"><i class="fas fa-history"></i> History</a>
+                <a href="about.html" class="active"><i class="fas
+fa-info-circle"></i> About</a>
+                <a href="help.html"><i class="fas fa-question-circle"></i> Help</a>
+                <a href="feedback.html"><i class="fas fa-comment"></i> Feedback</a>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="main">
+            <header>
+                <h1>About Weather Dashboard</h1>
+                <p>Learn more about our mission, team, and the technology behind
+                    our weather application</p>
+            </header>
+            <div class="about-content">
+                <div class="about-section">
+                    <h2><i class="fas fa-cloud"></i> Our Mission</h2>
+                    <p>Weather Dashboard is designed to provide accurate, real-time
+                        weather information in an intuitive and beautiful interface. Our goal is to make
+                        weather forecasting accessible to everyone, from casual users checking their local
+                        forecast to travelers planning their next adventure.</p>
+                    <p>We believe that weather information should be clear,reliable, and easy to understand. That's why we've created a dashboard that presents complex meteorological data in a simple, visually appealing format.</p>
+                </div>
+                <div class="about-section">
+                    <h2><i class="fas fa-users"></i> Our Team</h2>
+                    <p>We're a diverse team of developers, designers, and meteorology enthusiasts dedicated to creating the best weather experience possible.</p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Team Member"
+                                class="member-photo">
+                            <h3>Aarthi</h3>
+                            <div class="role">CEO & Founder</div>
+                            <p>Aarthi leads our development team in web
+                                technologies and API integration.</p>
+                        </div>
+                        <div class="team-member">
+
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCmyKFqP2QYULu-DlhEjDmCjQq88AlccjEbA&s" alt="Aisha Mohammed" class="member-photo">
+                            <h3>Abisha</h3>
+                            <div class="role">Art Director</div>
+                            <p>Abisha creates our beautiful interfaces with a focus
+                                on accessibility and user experience.</p>
+                        </div>
+                        <div class="team-member">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team Member"
+                                class="member-photo">
+                            <h3>Aaliha</h3>
+                            <div class="role">Designer</div>
+                            <p>Aaliha ensures the accuracy of our weather data and
+                                develops our forecasting algorithms.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-section">
+                    <h2><i class="fas fa-cogs"></i> Technology</h2>
+                    <p>Our dashboard leverages cutting-edge technology to deliver
+                        reliable weather information:</p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-satellite"></i>
+                            <h3>Real-time Data</h3>
+                            <p>We source data from multiple meteorological services
+                                for maximum accuracy.</p>
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Responsive Design</h3>
+                            <p>Our dashboard works seamlessly on desktop, tablet,
+                                and mobile devices.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Fast Performance</h3>
+                            <p>Optimized code ensures quick loading times and
+                                smooth interactions.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Privacy Focused</h3>
+                            <p>We respect your privacy and don't share your search
+                                data with third parties.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-section">
+                    <h2><i class="fas fa-history"></i> Our Story</h2>
+                    <p>Weather Dashboard began as a university project . What
+                        started as a simple weather application has evolved into a comprehensive platform
+                        used by thousands of people worldwide.</p>
+                    <p>We're constantly working to improve our service, adding new
+                        features and refining existing ones based on user feedback. Our commitment to
+                        quality and user satisfaction drives everything we do.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
